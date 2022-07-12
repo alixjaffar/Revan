@@ -64,6 +64,12 @@ client.on("messageCreate", message =>{
     if(command === 'meme'){
         client.commands.get('meme').execute(message, args, Discord, client);
     }
+    if(command === 'weather'){
+        client.commands.get('weather').execute(message, args, Discord, client);
+    }
+    if(command === 'help'){
+        client.commands.get('help').execute(message, args, Discord, client);
+    }
 
     
 });

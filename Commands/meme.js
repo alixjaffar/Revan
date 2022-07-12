@@ -1,25 +1,22 @@
+const randomPuppy = require('random-puppy');
+const Discord = require('discord.js');
+const { execute } = require('./purge');
+
 module.exports = {
-    name: 'purge',
-    permissions: ["ADMINISTRATOR"],
-    description: "This command deletes messages.",
-     execute(message, args, Discord, client){
-        const randomIndex = randomInt(0, subReddits.length);
-        axios
-          .get(`https://reddit.com/${subReddits[randomIndex]}/.json`)
-          .then((resp) => {
-            const {
-              title,
-              url,
-              subreddit_name_prefixed: subreddit
-            } = getRandomPost(resp.data.data.children);
-            message.channel.send(`${title}\n${url}\n from ${subreddit}`);
-          })
-      }
+    name: "meme",
+    description: "Gives you a meme",
+    async execute (message, args, Discord, client ) { 
+        const subReddits = ["dankmemes", "meme", "memes"]
+        const random = subReddits[Math.floor(Math.random() * subReddits.length)]
+
+        const img = await randomPuppy(random);
+
+        const memeEmbed = new Discord.MessageEmbed()
+        .setColor("RANDOM")
+        .setImage(img)
+        .setTitle(`Your meme. From r/${random}`)            
+        .setURL(`https://reddit.com/r/${random}`)
+  
+        message.channel.send({embeds:[memeEmbed]})
     }
-  
-  
-  function getRandomPost(posts) {
-    const randomIndex = randomInt(0, posts.length);
-    return posts[randomIndex].data;
-  }
-  
+}
